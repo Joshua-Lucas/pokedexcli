@@ -26,6 +26,16 @@ func GetCommands() map[string]CliCommand {
 			Description: "Exit the Pokedex",
 			Callback:    commandExit,
 		},
+		"map": {
+			Name:        "map",
+			Description: "Displays next 20 location areas at a time in the Pokemon world",
+			Callback:    commandMap,
+		},
+		"mapb": {
+			Name:        "mapb",
+			Description: "Displays previous 20 location areas at a time in the Pokemon world",
+			Callback:    commandMapb,
+		},
 	}
 }
 

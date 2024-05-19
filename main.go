@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/joshua-lucas/pokedexcli/pkg/repl"
+	"github.com/joshua-lucas/pokedexcli/internal/repl"
 )
 
 var commands map[string]repl.CliCommand
