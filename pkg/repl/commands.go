@@ -3,6 +3,7 @@ package repl
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 type CliCommand struct {
@@ -50,4 +51,10 @@ func commandExit() error {
 	os.Exit(0)
 
 	return nil
+}
+
+func SanitizeInput(input string) string {
+	trimmedInput := strings.Trim(input, " ")
+
+	return strings.ToLower(trimmedInput)
 }

@@ -20,7 +20,7 @@ func main() {
 
 	for scanner.Scan() {
 
-		input := scanner.Text()
+		input := repl.SanitizeInput(scanner.Text())
 
 		for key, value := range commands {
 
