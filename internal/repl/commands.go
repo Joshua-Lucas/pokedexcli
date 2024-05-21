@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/joshua-lucas/pokedexcli/internal/apis/pokeapi"
 )
 
 type CliCommand struct {
@@ -67,4 +69,33 @@ func SanitizeInput(input string) string {
 	trimmedInput := strings.Trim(input, " ")
 
 	return strings.ToLower(trimmedInput)
+}
+
+// Prints the next 20 map locations in the pokeman world
+func commandMap() error {
+
+	locationRes, _ := pokeapi.GetLocations(*GlobalConfig.next)
+
+	// updated config struct with the returned next and prev url
+	configUpdates := Config{
+		next:     &locationRes.Next,
+		previous: &locationRes.Previous,
+	}
+
+	UpdateConfig(GlobalConfig, configUpdates)
+
+	// Loop through the location area results and print them out.
+	for _, locationArea := range locationRes.Results {
+		fmt.Println(locationArea.Name)
+	}
+
+	return nil
+
+}
+
+// Prints the previous 20 map locations
+func commandMapb() error {
+
+	// Print error message or send on if on the first page.
+	return nil
 }
