@@ -96,6 +96,30 @@ func commandMap() error {
 // Prints the previous 20 map locations
 func commandMapb() error {
 
-	// Print error message or send on if on the first page.
+	if GlobalConfig.previous == nil || *GlobalConfig.previous == "" {
+		fmt.Println("There are no previous locations. Run \033[3m map \033[0m command to see the next locations")
+		return nil
+
+	}
+
+	locationRes, err := pokeapi.GetLocations(*GlobalConfig.previous)
+
+	if err != nil {
+		return err
+	}
+	// updated config struct with the returned next and prev url
+	configUpdates := Config{
+		next:     &locationRes.Next,
+		previous: &locationRes.Previous,
+	}
+
+	UpdateConfig(GlobalConfig, configUpdates)
+
+	// Loop through the location area results and print them out.
+	for _, locationArea := range locationRes.Results {
+		fmt.Println(locationArea.Name)
+	}
+
 	return nil
+
 }
